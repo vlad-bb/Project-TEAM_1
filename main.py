@@ -54,7 +54,7 @@ app.add_middleware(
 #     response = await call_next(request)
 #     return response
 
-ALLOWED_IPS = [ip_address("127.0.0.1"), "62.16.11.5"]
+ALLOWED_IPS = [ip_address("127.0.0.1"), ip_address("62.16.11.5")]
 
 
 @app.middleware("http")
