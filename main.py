@@ -54,7 +54,7 @@ app.add_middleware(
 #     response = await call_next(request)
 #     return response
 
-ALLOWED_IPS = [ip_address("127.0.0.1"), ]
+ALLOWED_IPS = [ip_address("127.0.0.1"), "https://photo-share-example-ai-tools-8d3e5edd.koyeb.app"]
 
 
 @app.middleware("http")
@@ -70,7 +70,7 @@ async def limit_access_by_ip(request: Request, call_next: Callable):
     """
     ip = ip_address(request.client.host)
     if ip not in ALLOWED_IPS:
-        return JSONResponse(status_code=status.HTTP_403_FORBIDDEN, content={"detail": "Not allowed IP address"})
+        return JSONResponse(status_code=status.HTTP_403_FORBIDDEN, content={"detail": f"Not allowed IP address: {ip}"})
     response = await call_next(request)
     return response
 
