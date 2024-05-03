@@ -54,25 +54,27 @@ app.add_middleware(
 #     response = await call_next(request)
 #     return response
 
-ALLOWED_IPS = [ip_address("127.0.0.1"), ip_address("62.16.11.5")]
+ALLOWED_IPS = [ip_address("127.0.0.1"), ip_address("62.16.11.5"),
+               ip_address("188.163.49.105"), ip_address("195.136.206.50"),
+               ip_address("195.136.206.50")]
 
 
-@app.middleware("http")
-async def limit_access_by_ip(request: Request, call_next: Callable):
-    """
-    The limit_access_by_ip function is a middleware function that limits access to the API by IP address.
-    It checks if the client's IP address is in ALLOWED_IPS, and if not, returns a 403 Forbidden response.
-
-    :param request: Request: Access the request object
-    :param call_next: Callable: Pass the next function in the chain
-    :return: A jsonresponse object with a status code of 403 and a message
-    :doc-author: Trelent
-    """
-    ip = ip_address(request.client.host)
-    if ip not in ALLOWED_IPS:
-        return JSONResponse(status_code=status.HTTP_403_FORBIDDEN, content={"detail": f"Not allowed IP address: {ip}"})
-    response = await call_next(request)
-    return response
+# @app.middleware("http")
+# async def limit_access_by_ip(request: Request, call_next: Callable):
+#     """
+#     The limit_access_by_ip function is a middleware function that limits access to the API by IP address.
+#     It checks if the client's IP address is in ALLOWED_IPS, and if not, returns a 403 Forbidden response.
+#
+#     :param request: Request: Access the request object
+#     :param call_next: Callable: Pass the next function in the chain
+#     :return: A jsonresponse object with a status code of 403 and a message
+#     :doc-author: Trelent
+#     """
+#     ip = ip_address(request.client.host)
+#     if ip not in ALLOWED_IPS:
+#         return JSONResponse(status_code=status.HTTP_403_FORBIDDEN, content={"detail": f"Not allowed IP address: {ip}"})
+#     response = await call_next(request)
+#     return response
 
 
 user_agent_ban_list = [r"Googlebot", r"Python-urllib", r"bot-Yandex"]
